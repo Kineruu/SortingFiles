@@ -11,6 +11,12 @@ Add an option to put all files into folders
 
 current_path = input("Enter folder's path: ")
 
+if os.path.exists(current_path):
+    pass
+else:
+    print("That path does not exist!")
+    quit()
+
 def sort_by_date():
     try:
         files = os.listdir(current_path)
@@ -71,7 +77,9 @@ def sort_by_size():
         print("The file does not exist.")    
 
 if __name__ == "__main__":
-    get_user_option = int(input("1. Sort by date\n2. Sort by size\n3. Extension\nOPTION: "))
+    get_user_option = int(input("1. Sort by date\n2. Sort by size\nOPTION: "))
     if get_user_option == 1: sort_by_date()
     if get_user_option == 2: sort_by_size()
+    if get_user_option != 1 or get_user_option != 2:
+        quit()
 
