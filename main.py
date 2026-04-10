@@ -33,6 +33,7 @@ def sort_by_date():
                 if not os.path.exists(new_full_path):
                     os.rename(full_path, new_full_path)
         print("Sorted.")
+        input()
 
     except FileNotFoundError:
         print("The file does not exist.")
@@ -72,6 +73,7 @@ def sort_by_size():
                 if not os.path.exists(new_full_path):
                     os.rename(full_path, new_full_path)
         print("Sorted.")
+        input()
 
     except FileNotFoundError:
         print("The file does not exist.")    
