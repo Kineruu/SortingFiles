@@ -2,10 +2,6 @@
 import time
 import os
 
-"""
-Start of the project ~19:45 CEST, 09/04/2026 (9th April 2026)
-"""
-
 current_path = input("Enter folder's path: ")
 
 if os.path.exists(current_path): 
@@ -20,7 +16,7 @@ def sort_by_date():
         files = os.listdir(current_path)
         for item in files:
             full_path = os.path.join(current_path, item)
-            
+
             if os.path.isfile(full_path):
                 created_time = os.path.getctime(full_path)
                 readable_time = time.strftime("%d-%m-%Y_%H-%M-%S", time.localtime(created_time))
@@ -81,4 +77,3 @@ if __name__ == "__main__":
     if get_user_option == 1: sort_by_date()
     if get_user_option == 2: sort_by_size()
     if get_user_option not in (1, 2): quit()
-
