@@ -4,9 +4,6 @@ import os
 
 """
 Start of the project ~19:45 CEST, 09/04/2026 (9th April 2026)
-
-Add _x (x being a number) if there are files with the same data (same name for example)
-Add an option to put all files into folders
 """
 
 current_path = input("Enter folder's path: ")
@@ -18,6 +15,7 @@ else:
     quit()
 
 def sort_by_date():
+    number = 1
     try:
         files = os.listdir(current_path)
         for item in files:
@@ -30,8 +28,12 @@ def sort_by_date():
                 new_item_name = f"{readable_time}{get_extension}"
                 new_full_path = os.path.join(current_path, new_item_name)
                 
-                if not os.path.exists(new_full_path):
-                    os.rename(full_path, new_full_path)
+                while os.path.exists(new_full_path):
+                    new_item_name = f"{readable_time}_{number}{get_extension}"
+                    new_full_path = os.path.join(current_path, new_item_name)
+                    number += 1
+
+                os.rename(full_path, new_full_path)
         print("Sorted.")
         input()
 
@@ -51,9 +53,10 @@ def format_size(size_in_bytes, option):
         return f"{size_in_bytes} B"
 
 def sort_by_size():
-    size_format = int(input("1. B\n2. KB\n3. MB\n4. GB\nOPTION: "))
-
-    if size_format == None:
+    number = 1
+    try:
+        size_format = int(input("1. B\n2. KB\n3. MB\n4. GB\nOPTION: "))
+    except ValueError:
         size_format = 3
 
     try:
@@ -67,11 +70,17 @@ def sort_by_size():
                 readable_size = format_size(get_file_size, size_format)
 
                 get_extension = os.path.splitext(item)[1]
+
                 new_item_name = f"{readable_size}{get_extension}"
                 new_full_path = os.path.join(current_path, new_item_name)
                 
-                if not os.path.exists(new_full_path):
-                    os.rename(full_path, new_full_path)
+                while os.path.exists(new_full_path):
+                    new_item_name = f"{readable_size}_{number}{get_extension}"
+                    new_full_path = os.path.join(current_path, new_item_name)
+                    number += 1
+
+                os.rename(full_path, new_full_path)
+
         print("Sorted.")
         input()
 
@@ -82,6 +91,5 @@ if __name__ == "__main__":
     get_user_option = int(input("1. Sort by date\n2. Sort by size\nOPTION: "))
     if get_user_option == 1: sort_by_date()
     if get_user_option == 2: sort_by_size()
-    if get_user_option != 1 or get_user_option != 2:
-        quit()
+    if get_user_option not in (1, 2): quit()
 
